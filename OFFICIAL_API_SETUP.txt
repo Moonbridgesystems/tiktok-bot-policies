@@ -1,0 +1,381 @@
+================================================================================
+  OFFICIAL TIKTOK API - COMPLETE SETUP GUIDE
+================================================================================
+
+🎯 You've chosen the BEST method - Official TikTok API!
+
+This guide will walk you through getting your API credentials step by step.
+
+================================================================================
+  STEP 1: CREATE TIKTOK DEVELOPER ACCOUNT
+================================================================================
+
+1. Visit: https://developers.tiktok.com/
+   (Opening in browser now...)
+
+2. Click "Register" or "Get Started"
+
+3. Log in with:
+   - Your TikTok account, OR
+   - Email/password to create new developer account
+
+4. Complete the registration form:
+   - Full name
+   - Email address
+   - Company/Organization (can use personal name if individual)
+   - Use case description
+
+5. Verify your email address
+
+
+================================================================================
+  STEP 2: CREATE AN APP
+================================================================================
+
+1. Once logged in, go to "My Apps" section
+
+2. Click "Create an app" or "+ Add app"
+
+3. Fill in the app details:
+
+   App Name:
+   └─> "TikTok Viral Clothing Finder"
+
+   App Description:
+   └─> "Bot to find viral clothing videos and analyze product 
+        inquiries in comments for e-commerce insights"
+
+   Category:
+   └─> Select "Social" or "Analytics"
+
+   Use Case:
+   └─> "I'm building a tool to help fashion brands identify viral 
+        clothing content and understand customer demand through 
+        comment analysis"
+
+4. Submit the application
+
+
+================================================================================
+  STEP 3: GET YOUR CREDENTIALS
+================================================================================
+
+1. After app creation, go to your app dashboard
+
+2. Navigate to "Basic Information" or "Credentials"
+
+3. You'll see:
+   ┌──────────────────────────────────────┐
+   │ Client Key:    abc123def456...       │
+   │ Client Secret: xyz789uvw012...       │
+   └──────────────────────────────────────┘
+
+4. Copy these values (keep them secret!)
+
+
+================================================================================
+  STEP 4: CONFIGURE YOUR BOT
+================================================================================
+
+1. Open the .env file in your project folder
+
+2. Replace the placeholder values:
+
+   Before:
+   ┌──────────────────────────────────────────────────┐
+   │ TIKTOK_CLIENT_KEY=your_client_key_here           │
+   │ TIKTOK_CLIENT_SECRET=your_client_secret_here     │
+   └──────────────────────────────────────────────────┘
+
+   After:
+   ┌──────────────────────────────────────────────────┐
+   │ TIKTOK_CLIENT_KEY=abc123def456...                │
+   │ TIKTOK_CLIENT_SECRET=xyz789uvw012...             │
+   └──────────────────────────────────────────────────┘
+
+3. Save the .env file
+
+4. DATA_SOURCE is already set to "official" ✓
+
+
+================================================================================
+  STEP 5: REQUEST API PERMISSIONS
+================================================================================
+
+In your app dashboard, request these permissions:
+
+Required Permissions:
+├─ video.list          (Search videos)
+├─ video.data          (Get video details)
+├─ comment.list        (Read comments)
+└─ user.info.basic     (Basic user info)
+
+Note: Some permissions require approval review!
+
+
+================================================================================
+  STEP 6: WAIT FOR APPROVAL (IMPORTANT!)
+================================================================================
+
+⏰ Timeline: 1-14 days (usually 3-5 business days)
+
+TikTok will review your app to ensure:
+✓ Legitimate use case
+✓ Compliance with their policies
+✓ No violation of privacy rules
+
+During review:
+- Check email for updates
+- Respond promptly to any questions
+- Be patient!
+
+Status Check:
+└─> Go to developers.tiktok.com → My Apps → Your App → Status
+
+
+================================================================================
+  STEP 7: TEST YOUR SETUP
+================================================================================
+
+Once approved, test your bot:
+
+1. Open terminal/command prompt
+
+2. Run:
+   ┌──────────────────────────────────────┐
+   │ python main.py --mode once           │
+   └──────────────────────────────────────┘
+
+3. You should see:
+   [DATA SOURCE] OFFICIAL
+   Using Official TikTok API
+   ✓ Successfully authenticated with TikTok Official API
+
+4. If successful, start the dashboard:
+   ┌──────────────────────────────────────┐
+   │ python main.py --dashboard           │
+   └──────────────────────────────────────┘
+
+5. Visit: http://localhost:5000
+
+
+================================================================================
+  WHAT TO DO WHILE WAITING FOR APPROVAL
+================================================================================
+
+Option 1: Use Demo Mode for Development
+├─ Edit .env: DATA_SOURCE=demo
+├─ Run bot to test functionality
+├─ Build/test dashboard features
+└─ Everything works except real data
+
+Option 2: Use Apify Temporarily (Recommended)
+├─ Sign up at apify.com (free $5 credit)
+├─ Get API token
+├─ Edit .env: DATA_SOURCE=apify
+├─ Get REAL DATA immediately
+└─ Switch to official API when approved
+
+Option 3: Manual CSV Import
+├─ Edit .env: DATA_SOURCE=csv
+├─ Manually collect video data
+├─ Import via CSV files
+└─ Full control, but manual work
+
+
+================================================================================
+  TROUBLESHOOTING
+================================================================================
+
+Problem: "API credentials not found"
+Solution: 
+  - Check .env file exists in project root
+  - Ensure no typos in TIKTOK_CLIENT_KEY and TIKTOK_CLIENT_SECRET
+  - Remove quotes around values
+  - Restart the bot after editing .env
+
+Problem: "Authentication failed"
+Solution:
+  - Verify credentials are correct
+  - Check if app is approved
+  - Ensure no extra spaces in .env file
+  - Try regenerating credentials in developer portal
+
+Problem: "Permission denied" errors
+Solution:
+  - Request required permissions in app dashboard
+  - Wait for permission approval
+  - Check which permissions are granted
+
+Problem: "Rate limit exceeded"
+Solution:
+  - TikTok limits API calls per day
+  - Reduce MAX_VIDEOS_PER_KEYWORD in config.py
+  - Increase REFRESH_INTERVAL_MINUTES
+  - Contact TikTok for higher limits
+
+
+================================================================================
+  API RATE LIMITS (After Approval)
+================================================================================
+
+Free Tier Limits (typical):
+├─ 1,000 requests/day
+├─ 100 requests/hour
+└─ 10 requests/minute
+
+For your use case:
+- 7 keywords × 20 videos = 140 video searches/day
+- Each video = 1 comment fetch
+- Total: ~280 requests/day ✓ (within free limit)
+
+Need higher limits?
+└─> Apply for "Production" tier in developer portal
+
+
+================================================================================
+  BEST PRACTICES
+================================================================================
+
+1. Keep credentials secret:
+   ✓ Never commit .env to Git
+   ✓ .env is in .gitignore
+   ✓ Don't share credentials
+
+2. Respect rate limits:
+   ✓ Don't make too many requests
+   ✓ Use delays between requests
+   ✓ Monitor your usage
+
+3. Follow TikTok policies:
+   ✓ Only collect public data
+   ✓ Don't misuse user data
+   ✓ Respect user privacy
+   ✓ Follow Terms of Service
+
+4. Monitor your app:
+   ✓ Check developer dashboard regularly
+   ✓ Watch for policy updates
+   ✓ Keep contact info current
+
+
+================================================================================
+  UPGRADE PATH (Optional)
+================================================================================
+
+As your needs grow:
+
+Tier 1: Free (Current)
+└─> 1,000 requests/day
+
+Tier 2: Standard (Paid)
+├─> 10,000 requests/day
+├─> Priority support
+└─> Cost: Contact TikTok
+
+Tier 3: Enterprise (Large Scale)
+├─> Unlimited requests
+├─> Dedicated support
+├─> Custom features
+└─> Cost: Custom pricing
+
+
+================================================================================
+  NEXT STEPS - ACTION ITEMS
+================================================================================
+
+📋 Your To-Do List:
+
+[ ] 1. Visit https://developers.tiktok.com/ (opened for you)
+[ ] 2. Create developer account
+[ ] 3. Create new app "TikTok Viral Clothing Finder"
+[ ] 4. Copy Client Key and Client Secret
+[ ] 5. Edit .env file with your credentials
+[ ] 6. Request required permissions
+[ ] 7. Submit for approval
+[ ] 8. Wait for approval email (3-5 days)
+[ ] 9. Test with: python main.py --mode once
+[ ] 10. Start dashboard: python main.py --dashboard
+
+In the meantime:
+[ ] Consider using Apify for immediate results
+[ ] Or use demo mode to test functionality
+
+
+================================================================================
+  IMPORTANT REMINDERS
+================================================================================
+
+✅ DO:
+   - Be honest in your application
+   - Describe legitimate use case
+   - Respect user privacy
+   - Follow TikTok's guidelines
+   - Keep credentials secure
+
+❌ DON'T:
+   - Share API credentials
+   - Make excessive requests
+   - Scrape private content
+   - Violate Terms of Service
+   - Commit .env to version control
+
+
+================================================================================
+  SUPPORT & RESOURCES
+================================================================================
+
+Official Documentation:
+├─ Developer Portal: https://developers.tiktok.com/
+├─ API Docs: https://developers.tiktok.com/doc/overview
+├─ Support: developers@tiktok.com
+└─ FAQ: https://developers.tiktok.com/doc/faq
+
+Your Project Files:
+├─ Configuration: .env (edit this file)
+├─ Setup Guide: REALTIME_SETUP.md (detailed guide)
+├─ Quick Start: REALTIME_QUICKSTART.txt
+└─ Main Documentation: README.md
+
+
+================================================================================
+  CURRENT STATUS
+================================================================================
+
+✓ Bot configured for Official API
+✓ .env file updated with DATA_SOURCE=official
+✓ TikTok Developers website opened
+✓ Setup guide created
+
+⏳ WAITING FOR YOU:
+   1. Get API credentials from developers.tiktok.com
+   2. Add them to .env file
+   3. Wait for approval
+   4. Run the bot!
+
+
+================================================================================
+  QUESTIONS?
+================================================================================
+
+Common Questions:
+
+Q: How long does approval take?
+A: Usually 3-5 business days, sometimes up to 2 weeks
+
+Q: Can I use this commercially?
+A: Yes, but describe your commercial use case in the application
+
+Q: Is there a cost?
+A: Free tier is free! Paid tiers available for higher volume
+
+Q: What if I'm rejected?
+A: Provide more details about your use case and reapply
+
+Q: Can I test before approval?
+A: Yes! Use demo mode or Apify while waiting
+
+
+Good luck with your application! 🚀
+
+================================================================================

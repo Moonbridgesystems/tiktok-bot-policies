@@ -1,0 +1,301 @@
+================================================================================
+  PROJECT STRUCTURE - TikTok Viral Clothing Bot
+================================================================================
+
+TikTok Viral Clothing bot/
+│
+├── 📁 bot/                          # Core bot modules
+│   ├── __init__.py                  # Package initializer
+│   ├── analyzer.py                  # Comment analyzer for product inquiries
+│   ├── database.py                  # SQLite database operations
+│   └── scraper.py                   # TikTok video scraper
+│
+├── 📁 dashboard/                    # Web dashboard
+│   ├── __init__.py                  # Package initializer
+│   ├── app.py                       # Flask application
+│   └── 📁 templates/
+│       └── index.html               # Dashboard UI (HTML/CSS/JS)
+│
+├── 📁 data/                         # Data storage (auto-created)
+│   └── videos.db                    # SQLite database
+│
+├── config.py                        # Configuration settings
+├── main.py                          # Main entry point script
+├── requirements.txt                 # Python dependencies
+│
+├── README.md                        # Complete documentation
+├── QUICKSTART.txt                   # Quick start guide
+├── .gitignore                       # Git ignore rules
+│
+├── start_bot.bat                    # Windows: Start bot (easy launcher)
+└── start_dashboard.bat              # Windows: Start dashboard (easy launcher)
+
+
+================================================================================
+  FILE DESCRIPTIONS
+================================================================================
+
+CORE MODULES
+------------
+
+config.py
+   Purpose: Central configuration file
+   Contains:
+      - Search keywords/hashtags
+      - Time range settings
+      - Product inquiry phrases
+      - Scraping limits
+      - Dashboard settings
+   Customize: Edit this file to change bot behavior
+
+bot/scraper.py
+   Purpose: TikTok video scraper
+   Functions:
+      - Search videos by keyword/hashtag
+      - Extract video metadata (views, likes, etc.)
+      - Fetch comments from videos
+      - Demo mode when API unavailable
+   Dependencies: TikTokApi, playwright
+
+bot/analyzer.py
+   Purpose: Analyze comments for product inquiries
+   Functions:
+      - Detect inquiry phrases in comments
+      - Count product inquiry comments
+      - Filter inquiry comments
+   Algorithm: Keyword matching (case-insensitive)
+
+bot/database.py
+   Purpose: Database operations
+   Functions:
+      - Save/update video data
+      - Retrieve videos (with sorting)
+      - Delete old videos (>24h)
+      - Get statistics
+   Storage: SQLite database (data/videos.db)
+
+main.py
+   Purpose: Main script to run the bot
+   Modes:
+      - once: Single scrape session
+      - continuous: Periodic scraping
+      - dashboard: Launch web dashboard
+   Usage: python main.py --mode once --dashboard
+
+
+DASHBOARD
+---------
+
+dashboard/app.py
+   Purpose: Flask web server
+   Endpoints:
+      - /              → Main dashboard page
+      - /api/videos    → Get videos (sortable)
+      - /api/stats     → Get statistics
+   Server: Flask (port 5000)
+
+dashboard/templates/index.html
+   Purpose: Web interface
+   Features:
+      - Responsive grid layout
+      - Video cards with thumbnails
+      - Sorting (inquiries, views, likes)
+      - Auto-refresh (60 seconds)
+      - Statistics dashboard
+   Tech: HTML5, CSS3, Vanilla JavaScript
+
+
+DATABASE SCHEMA
+---------------
+
+Table: videos
+   Columns:
+      - id                         INTEGER PRIMARY KEY
+      - video_id                   TEXT UNIQUE (TikTok ID)
+      - video_link                 TEXT (full URL)
+      - thumbnail_url              TEXT
+      - views                      INTEGER
+      - likes                      INTEGER
+      - total_comments             INTEGER
+      - product_inquiry_comments   INTEGER (calculated)
+      - post_time                  TIMESTAMP
+      - scraped_time               TIMESTAMP
+      - last_updated               TIMESTAMP
+
+
+CONFIGURATION
+-------------
+
+Default Settings (config.py):
+
+   Search Keywords:
+      - #fashion
+      - #clothing
+      - #outfit
+      - #ootd
+      - #style
+      - #fashiontiktok
+      - #clothinghaul
+
+   Inquiry Phrases:
+      - "where does this"
+      - "where can i buy"
+      - "where is this from"
+      - "where did you get"
+      - "where to buy"
+      - "w2c"
+      - "what brand"
+      (and more...)
+
+   Limits:
+      - Time range: 24 hours
+      - Videos per keyword: 20
+      - Comments per video: 100
+      - Refresh interval: 30 minutes
+
+
+LAUNCHER SCRIPTS
+----------------
+
+start_bot.bat (Windows)
+   Actions:
+      1. Creates virtual environment (if needed)
+      2. Activates virtual environment
+      3. Installs requirements
+      4. Installs Playwright
+      5. Runs bot in continuous mode
+
+start_dashboard.bat (Windows)
+   Actions:
+      1. Creates virtual environment (if needed)
+      2. Activates virtual environment
+      3. Installs requirements
+      4. Starts Flask dashboard
+      5. Opens http://localhost:5000
+
+
+DEPENDENCIES
+------------
+
+Main Dependencies (requirements.txt):
+   - flask==3.0.0              → Web framework for dashboard
+   - TikTokApi==6.0.1          → TikTok scraping library
+   - playwright==1.40.0        → Browser automation
+   - python-dateutil==2.8.2    → Date/time utilities
+
+Built-in (no install needed):
+   - sqlite3                   → Database
+   - datetime                  → Time operations
+   - argparse                  → CLI arguments
+
+
+WORKFLOW
+--------
+
+1. Bot Workflow:
+   main.py → scraper.py → analyzer.py → database.py
+   
+   Steps:
+      a. Delete old videos (>24h)
+      b. Search TikTok for keywords
+      c. For each video:
+         - Get metadata
+         - Fetch comments
+         - Analyze for inquiries
+         - Save to database
+      d. Display summary
+
+2. Dashboard Workflow:
+   User Browser → Flask (app.py) → Database (database.py)
+   
+   Steps:
+      a. User accesses http://localhost:5000
+      b. Flask serves index.html
+      c. JavaScript fetches data from API
+      d. Videos displayed in cards
+      e. User can sort/filter
+      f. Auto-refresh every 60s
+
+
+CUSTOMIZATION GUIDE
+-------------------
+
+Add New Keywords:
+   1. Edit config.py
+   2. Add to SEARCH_KEYWORDS list
+   3. Restart bot
+
+Add Inquiry Phrases:
+   1. Edit config.py
+   2. Add to INQUIRY_PHRASES list
+   3. Restart bot
+
+Change Refresh Rate:
+   1. Edit config.py
+   2. Modify REFRESH_INTERVAL_MINUTES
+   3. Restart bot
+
+Change Dashboard Style:
+   1. Edit dashboard/templates/index.html
+   2. Modify <style> section
+   3. Refresh browser
+
+
+TECHNICAL NOTES
+---------------
+
+Rate Limiting:
+   - 1 second delay between videos
+   - 2 seconds delay between keywords
+   - Prevents TikTok blocking
+
+Demo Mode:
+   - Activates when TikTokApi not available
+   - Generates sample data for testing
+   - Uses placeholder images
+
+Error Handling:
+   - Try/except blocks in all API calls
+   - Graceful fallback to demo mode
+   - Continues on individual video failures
+
+Data Cleanup:
+   - Automatic deletion of 24h+ old videos
+   - Prevents database bloat
+   - Runs at start of each scrape session
+
+
+SECURITY & PRIVACY
+------------------
+
+Data Collection:
+   - Only public TikTok data
+   - No authentication required
+   - No personal user data stored
+
+Database:
+   - Local SQLite file
+   - Not exposed to internet
+   - Can be deleted anytime
+
+API Usage:
+   - Uses unofficial TikTok API
+   - May violate TikTok ToS
+   - Use responsibly
+
+
+TROUBLESHOOTING
+---------------
+
+See README.md for detailed troubleshooting guide.
+
+Common issues:
+   - Import errors → Run pip install -r requirements.txt
+   - No videos → Run bot first, then dashboard
+   - Port conflict → Change DASHBOARD_PORT in config.py
+   - TikTok blocking → Demo mode activates automatically
+
+
+================================================================================
+  End of Project Structure Documentation
+================================================================================

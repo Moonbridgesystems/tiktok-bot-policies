@@ -1,0 +1,155 @@
+================================================================================
+  REAL-TIME DATA COLLECTION - QUICK START
+================================================================================
+
+🎯 CHOOSE YOUR METHOD (Safest to Easiest)
+
+Method 1: OFFICIAL TIKTOK API ⭐ MOST RECOMMENDED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Safety: ✅✅✅✅✅ | Cost: Free-$$ | Setup: 1-2 weeks
+
+Steps:
+1. Go to https://developers.tiktok.com/
+2. Create developer account
+3. Apply for API access (review process takes time)
+4. Create an app to get Client Key & Secret
+5. Edit .env file:
+   DATA_SOURCE=official
+   TIKTOK_CLIENT_KEY=your_key
+   TIKTOK_CLIENT_SECRET=your_secret
+6. Run: python main.py --mode once
+
+Best for: Long-term use, high volume, professional projects
+
+
+Method 2: APIFY ⭐ EASIEST
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Safety: ✅✅✅✅✅ | Cost: $10-30/month | Setup: 5 minutes
+
+Steps:
+1. Go to https://apify.com (Free $5 credit on signup)
+2. Sign up for account
+3. Go to Settings → Integrations
+4. Copy your API token
+5. Edit .env file:
+   DATA_SOURCE=apify
+   APIFY_API_TOKEN=your_token
+6. Run: python main.py --mode once
+
+Best for: Quick start, no technical setup, reliable
+
+
+Method 3: CSV IMPORT ⭐ SAFEST (Manual)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Safety: ✅✅✅✅✅ | Cost: Free | Setup: Immediate
+
+Steps:
+1. Edit .env file:
+   DATA_SOURCE=csv
+2. Run: python main.py --mode once
+   (This creates import_data/csv_template.csv)
+3. Open csv_template.csv
+4. Add your TikTok video data
+5. Run: python main.py --mode once again
+
+Best for: Full control, completely safe, manual work
+
+
+Method 4: DEMO MODE (For Testing)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Safety: ✅✅✅✅✅ | Cost: Free | Setup: Already done!
+
+Already configured! Just run:
+   python main.py --mode once
+
+Best for: Testing, development, proof of concept
+
+
+================================================================================
+  CURRENT SETUP
+================================================================================
+
+Your bot is currently using: DEMO MODE
+
+To switch to real data:
+1. Edit .env file in the project folder
+2. Change DATA_SOURCE=demo to one of:
+   - DATA_SOURCE=official (TikTok API)
+   - DATA_SOURCE=apify (Apify)
+   - DATA_SOURCE=csv (Manual CSV)
+3. Add required credentials (see above)
+4. Run the bot
+
+
+================================================================================
+  WIZARD SETUP (Interactive)
+================================================================================
+
+For step-by-step setup, run:
+   setup_realtime.bat
+
+This will guide you through configuration.
+
+
+================================================================================
+  QUICK COMPARISON
+================================================================================
+
+Method       | Safety | Cost/Mo  | Setup  | Real-time | Comments
+-------------|--------|----------|--------|-----------|------------------
+Official API | ⭐⭐⭐⭐⭐ | $0-50    | 2 weeks| Yes       | Best long-term
+Apify        | ⭐⭐⭐⭐⭐ | $10-30   | 5 min  | Yes       | Easiest
+CSV Import   | ⭐⭐⭐⭐⭐ | $0       | Now    | No        | Manual work
+Demo         | ⭐⭐⭐⭐⭐ | $0       | Done   | No        | For testing
+
+
+================================================================================
+  DETAILED GUIDES
+================================================================================
+
+Full documentation: REALTIME_SETUP.md
+
+Official TikTok API:
+   - Documentation: https://developers.tiktok.com/doc/overview
+   - Apply for access: https://developers.tiktok.com/apps
+
+Apify:
+   - Main site: https://apify.com
+   - TikTok Scraper: https://apify.com/apify/tiktok-scraper
+   - Pricing: https://apify.com/pricing
+
+CSV Format:
+   See: import_data/csv_template.csv (auto-generated)
+
+
+================================================================================
+  NEXT STEPS
+================================================================================
+
+1. Choose a method above
+2. Follow setup steps
+3. Run: python main.py --mode once
+4. Start dashboard: python main.py --dashboard
+5. Open: http://localhost:5000
+
+
+NEED HELP?
+- Read: REALTIME_SETUP.md (comprehensive guide)
+- Run: setup_realtime.bat (interactive wizard)
+- Check: .env.example (all configuration options)
+
+
+================================================================================
+  IMPORTANT: TERMS OF SERVICE
+================================================================================
+
+Always respect TikTok's Terms of Service:
+✅ Only collect public data
+✅ Use rate limiting
+✅ Don't misuse data
+✅ Be transparent about data usage
+
+Official API is the safest and most legal method!
+
+
+================================================================================

@@ -1,0 +1,26 @@
+# TikTok Viral Clothing Bot Dependencies
+
+# Core dependencies
+flask==3.0.0
+werkzeug==3.0.1
+
+# TikTok API (may require additional setup)
+TikTokApi==6.0.1
+playwright==1.40.0
+
+# Environment variables
+python-dotenv==1.0.0
+
+# HTTP requests for API integrations
+requests==2.31.0
+
+# Alternative scraping tools (optional)
+# If TikTokApi doesn't work, you can try these alternatives:
+# selenium==4.15.2
+# beautifulsoup4==4.12.2
+
+# Database
+# SQLite is built into Python, no additional package needed
+
+# Utilities
+python-dateutil==2.8.2

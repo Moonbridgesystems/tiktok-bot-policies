@@ -1,0 +1,114 @@
+================================================================================
+  QUICK START GUIDE - TikTok Viral Clothing Bot
+================================================================================
+
+For Windows Users (Easy Way):
+------------------------------
+
+1. DOUBLE-CLICK: start_bot.bat
+   - This will install everything and start the bot
+
+2. DOUBLE-CLICK: start_dashboard.bat
+   - This will start the dashboard
+
+3. OPEN BROWSER: http://localhost:5000
+
+
+For Manual Setup:
+-----------------
+
+Step 1: Install Python
+   - Download Python 3.8+ from python.org
+   - Make sure to check "Add Python to PATH" during installation
+
+Step 2: Open Terminal/Command Prompt
+   - Navigate to this folder:
+     cd "C:\Users\Asif Computer\Desktop\TikTok Viral Clothing bot"
+
+Step 3: Create Virtual Environment
+   python -m venv venv
+   venv\Scripts\activate
+
+Step 4: Install Dependencies
+   pip install -r requirements.txt
+   playwright install
+
+Step 5: Run the Bot
+   python main.py --mode once
+   
+   OR run continuously:
+   python main.py --mode continuous
+
+Step 6: Start Dashboard (in new terminal)
+   python main.py --dashboard
+   
+   Then open: http://localhost:5000
+
+
+What Each Script Does:
+----------------------
+
+main.py
+   - Main bot script
+   - Options: --mode once/continuous, --dashboard
+
+bot/scraper.py
+   - Scrapes TikTok videos
+
+bot/analyzer.py
+   - Analyzes comments for product inquiries
+
+bot/database.py
+   - Saves data to SQLite database
+
+dashboard/app.py
+   - Flask web server for the dashboard
+
+config.py
+   - Configuration settings (customize here!)
+
+
+Customization:
+--------------
+
+Edit config.py to change:
+   - Keywords to search (#fashion, #clothing, etc.)
+   - Product inquiry phrases
+   - Scraping limits
+   - Refresh interval
+
+
+Troubleshooting:
+----------------
+
+Problem: "Python is not recognized"
+Solution: Install Python and add to PATH
+
+Problem: No videos showing
+Solution: Run the bot first (start_bot.bat or python main.py --mode once)
+
+Problem: Port 5000 already in use
+Solution: Edit config.py and change DASHBOARD_PORT to another port (e.g., 8000)
+
+Problem: TikTok blocking requests
+Solution: The bot will run in demo mode. For real scraping, you may need
+          proxies or alternative methods (see README.md)
+
+
+Need Help?
+----------
+
+Read the full README.md for detailed documentation.
+
+
+================================================================================
+  Ready to Start!
+================================================================================
+
+1. Double-click start_dashboard.bat
+2. Double-click start_bot.bat
+3. Visit http://localhost:5000
+
+That's it! The bot will start collecting viral clothing videos.
+
+================================================================================
